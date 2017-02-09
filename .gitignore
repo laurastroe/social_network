@@ -1,0 +1,107 @@
+# Object files
+*.o
+*.slo
+*.lo
+*.pkgo
+
+# Libraries
+*.lib
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# It's better to unpack these files and commit the raw source because
+# git has its own built in compression methods.
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.bzip
+*.bz2
+*.xz
+*.lzma
+
+#packing-only formats
+*.iso
+*.tar
+
+#package management formats
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm
+
+#Eclipse ignores
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+#Linux specific
+.*
+!.gitignore
+*~
+
+# Ignore tags created by etags and ctags
+TAGS
+!TAGS/
+tags
+!tags/
+
+#Vim specific
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+#other misc
+*.order
+*.ko
+*.mod.o
+*.symvers
+*.mod.c
+*.o
+.nfs*
+*.*~
+*.swp
+*.out
+*.html
+*.d
+*.bak
+*.swo
+*.sh
+
