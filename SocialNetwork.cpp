@@ -73,7 +73,7 @@ int CSocialNetwork::shortestPath(const string& from, const string& to, int cost)
 	person *f = (work.find(from)->second);
 	if (from.compare(to) == 0)
 		return 0;
-	// Mark all the vertices as not visited
+	// Visited nodes
 	map <ve, bool> visited;
 	list<ve> queue;
 	list<ve>::iterator i; 
