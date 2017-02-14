@@ -14,10 +14,19 @@ connect two people in the social network
 #Installation
 #############
 Red Hat 5.3.1-2
->sudo dnf -y install git
+#Step 1: Install git
+```
+> sudo dnf -y install git
+```
+#Step 2: Clone the repository
+```
 >git clone https://github.com/laurastroe/social_network.git
+```
+#Step 3: Compilation
+```
 >cd social_network/
->make
+make
+```
 
 ###################################
 #Command Line Options and Arguments
