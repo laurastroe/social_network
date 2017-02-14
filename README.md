@@ -10,6 +10,15 @@ The program
 members of the network can be defined as the minimum number of ties required to
 connect two people in the social network
 
+#############
+#Installation
+#############
+Red Hat 5.3.1-2
+>sudo dnf -y install git
+>git clone https://github.com/laurastroe/social_network.git
+>cd social_network/
+>make
+
 ###################################
 #Command Line Options and Arguments
 ###################################
