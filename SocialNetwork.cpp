@@ -15,15 +15,15 @@
 using namespace std;
 typedef enum {ERROR = -1, OK} STATUS;
 struct person {
-	typedef pair<int, person *> ve; 
-    list<ve> adj; //Adjiacent list of vertices
-    string name;
-    person(string s) : name(s) {}
+	typedef pair<int, person *> ve;
+	list<ve> adj; //Adjiacent list of vertices
+	string name;
+	person(string s) : name(s) {}
 };
 
-typedef pair<int, person *> ve; 
+typedef pair<int, person *> ve;
 typedef map<string, person *> vmap;
- 
+
 class CSocialNetwork
 {
 private:
@@ -32,7 +32,7 @@ private:
 public:
 	STATUS addPerson(const string&);
 	STATUS addFriendship(const string& from, const string& to, double cost);
-	int shortestPath(const string& start, const string& end, int cost = 0);
+	std::map<int, string> shortestPath(const string& from, const string& to, int cost = 0);
 	CSocialNetwork() : size(0){ };
 	int Size() { return size; }
 	~CSocialNetwork() {
@@ -67,34 +67,42 @@ STATUS CSocialNetwork::addFriendship(const string& from, const string& to, doubl
 	return OK;
 }
 
-int CSocialNetwork::shortestPath(const string& from, const string& to, int cost)
+map<int, string> CSocialNetwork::shortestPath(const string& from, const string& to, int cost)
 {
-	static int found = -1;
 	person *f = (work.find(from)->second);
+	static map<int, string> path;
 	if (from.compare(to) == 0)
-		return 0;
+		return path;
 	// Visited nodes
 	map <ve, bool> visited;
 	list<ve> queue;
-	list<ve>::iterator i; 
+	list<ve>::iterator i;
 
 	ve from_vert = make_pair(cost, f);
+	path[cost].assign(from);
 	visited[from_vert] = true;
 	queue.push_back(from_vert);
 	while (!queue.empty()) {
 		from_vert = queue.front();
 		queue.pop_front();
-
+		path[from_vert.first].assign(from_vert.second->name);
 		for (i = from_vert.second->adj.begin();
 		      i != from_vert.second->adj.end(); ++i) {
-			(*i).first = from_vert.first+1; 
+			(*i).first = from_vert.first+1;
 			if ((*i).second->name.compare(to) == 0) {
-				found = (*i).first;
-				return found;
+				path[(*i).first].assign((*i).second->name.c_str());
+				for (int j = 0; j < path.size(); j++) {
+					cout << path[j];
+					if (j != (path.size()-1))
+						cout << "----->";
+				}
+				cout << endl;
+				return path;
 			}
 			if(visited[(*i)] == false) {
 				visited[(*i)] = true;
 				queue.push_back(*i);
+				path[(*i).first].assign((*i).second->name.c_str());
 			}
 		}
 	}
@@ -115,7 +123,7 @@ int CSocialNetwork::shortestPath(const string& from, const string& to, int cost)
 		    }
 	    }
 	}
-	return (found);
+	return path;
 }
 
 static void show_usage()
@@ -124,7 +132,7 @@ static void show_usage()
 }
 
 int main(int argc, char* argv[]) {
-	
+
 	string line, from, to;
 	int c;
 	ifstream input ("SocialNetwork.txt");
@@ -136,7 +144,7 @@ int main(int argc, char* argv[]) {
 		string name;
 		vector <string> connection;
 		while (getline(to_split, name, ',')) {
-			connection.push_back(name.c_str()); 
+			connection.push_back(name.c_str());
 			socialNework.addPerson(name.c_str());
 		}
 		socialNework.addFriendship(connection[0], connection[1], 0);
@@ -144,7 +152,7 @@ int main(int argc, char* argv[]) {
 	input.close();
 	}
 	else
-	  cout << "Unable to open file"; 
+	  cout << "Unable to open file";
 	while ((c = getopt(argc, argv, ":sf:t:")) != -1) {
 		switch (c) {
 		case 's':
@@ -164,7 +172,7 @@ int main(int argc, char* argv[]) {
 	}
 	if (!from.empty() || !from.empty()) {
 		cout << "Distance between " << from << " and " << to << " is "
-			<< socialNework.shortestPath(from, to)<<endl;
+			<< socialNework.shortestPath(from, to).size()-1<<endl;
 	}
 	return 0;
 }
